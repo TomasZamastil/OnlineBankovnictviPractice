@@ -8,49 +8,49 @@ public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long movementId;
+    private long transactionId;
 
     @ManyToOne
     @JoinColumn(name = "originatingUser")
-    private User originatingUser;
+    private AccountUser originatingUser;
 
     @ManyToOne
     @JoinColumn(name = "receivingUser")
-    private User receivingUser;
+    private AccountUser receivingUser;
 
-    private boolean isDeposit;
     private double amount;
 
-    public long getMovementId() {
-        return movementId;
+    public Transaction(AccountUser originatingUser, AccountUser receivingUser, double amount) {
+        this.originatingUser = originatingUser;
+        this.receivingUser = receivingUser;
+        this.amount = amount;
     }
 
-    public void setMovementId(long movementId) {
-        this.movementId = movementId;
+    public Transaction() {
     }
 
-    public User getOriginatingUser() {
+    public long getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(long movementId) {
+        this.transactionId = movementId;
+    }
+
+    public AccountUser getOriginatingUser() {
         return originatingUser;
     }
 
-    public void setOriginatingUser(User originatingUser) {
+    public void setOriginatingUser(AccountUser originatingUser) {
         this.originatingUser = originatingUser;
     }
 
-    public User getReceivingUser() {
+    public AccountUser getReceivingUser() {
         return receivingUser;
     }
 
-    public void setReceivingUser(User receivingUser) {
+    public void setReceivingUser(AccountUser receivingUser) {
         this.receivingUser = receivingUser;
-    }
-
-    public boolean isDeposit() {
-        return isDeposit;
-    }
-
-    public void setDeposit(boolean deposit) {
-        isDeposit = deposit;
     }
 
     public double getAmount() {
@@ -59,5 +59,20 @@ public class Transaction {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Transaction that = (Transaction) o;
+
+        return transactionId == that.transactionId;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (transactionId ^ (transactionId >>> 32));
     }
 }
