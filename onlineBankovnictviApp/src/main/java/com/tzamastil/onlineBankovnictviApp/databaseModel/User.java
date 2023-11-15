@@ -1,11 +1,9 @@
 package com.tzamastil.onlineBankovnictviApp.databaseModel;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User extends Account{
@@ -16,6 +14,11 @@ public class User extends Account{
     private long accountNumber;
     private double balance;
 
+    @OneToMany(mappedBy = "originatingUser", cascade = CascadeType.ALL)
+    private List<Transaction> originatingTransactions;
+    @OneToMany(mappedBy = "receivingUser", cascade = CascadeType.ALL)
+    private List<Transaction> receivedTransactions;
+
     public User() {
     }
 
@@ -24,6 +27,48 @@ public class User extends Account{
         this.balance = balance;
 
         // This is a generic value, all accounts will start with a 1 and end with the id assigned at creation
-        accountNumber = 1000+id;
+        this.accountNumber = 1000+id;
+        this.originatingTransactions = new ArrayList<>();
+        this.receivedTransactions = new ArrayList<>();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(long accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    public List<Transaction> getOriginatingTransactions() {
+        return originatingTransactions;
+    }
+
+    public void setOriginatingTransactions(List<Transaction> originatingTransactions) {
+        this.originatingTransactions = originatingTransactions;
+    }
+
+    public List<Transaction> getReceivedTransactions() {
+        return receivedTransactions;
+    }
+
+    public void setReceivedTransactions(List<Transaction> receivedTransactions) {
+        this.receivedTransactions = receivedTransactions;
     }
 }
