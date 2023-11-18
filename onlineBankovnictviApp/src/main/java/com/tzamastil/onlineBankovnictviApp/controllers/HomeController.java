@@ -12,6 +12,6 @@ public class HomeController {
     public String getHome(Model model) {
         model.addAttribute("something", "this is a blbost, sir.");
 
-        return "home";
+        return "home/homePage";
     }
 }
