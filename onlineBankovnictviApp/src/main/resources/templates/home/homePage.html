@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8"/>
     <title>Tomova Banka 4 U</title>
 </head>
 <body>
-<h1 th:text="${something}"> hm </h1>
 
-<button type="button">Click Me!</button>
+<button onclick="location.href='/userlogin'" type="button">
+    Log into your account</button>
+<button onclick="location.href='/employeelogin'" type="button">
+    Log into employee account</button>
 </body>
 </html>

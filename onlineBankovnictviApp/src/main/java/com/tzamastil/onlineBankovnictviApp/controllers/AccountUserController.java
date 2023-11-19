@@ -14,11 +14,9 @@ public class AccountUserController {
         this.userRepo = userRepo;
     }
 
-    @RequestMapping("/userlogin")
+    @RequestMapping("/useroverview")
     public String getAccountUsers(Model model) {
 
-        model.addAttribute("userlogin", userRepo.findAll());
-
-        return "userlogin/userLogin";
+        return "useroverview/accountView";
     }
 }
