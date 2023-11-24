@@ -14,6 +14,8 @@ public class Employee{
     private String name;
     private String password;
 
+    public static Employee currentLoggedAccount = null;
+
     public Employee() {
     }
 
@@ -30,6 +32,10 @@ public class Employee{
         this.employeeId = employeeId;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -43,5 +49,14 @@ public class Employee{
     @Override
     public int hashCode() {
         return (int) (employeeId ^ (employeeId >>> 32));
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

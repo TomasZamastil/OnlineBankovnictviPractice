@@ -10,6 +10,22 @@
 <button onclick="location.href='/home'" type="button">
     Back home</button>
 
-<button type="button">Click Me!</button>
+<div class="form-container">
+    <form action="/loginInformation" method="post">
+        <div>
+            <label for="name">name</label><br>
+            <input type="text" id="name" name="name" placeholder="Jméno" />
+        </div>
+
+        <div>
+            <label for="password">password</label><br>
+            <input type="password" id="password" name="password" placeholder="Heslo" />
+        </div>
+
+        <div class="input-container">
+            <input type="submit" value="Login" />
+        </div>
+    </form>
+</div>
 </body>
 </html>
