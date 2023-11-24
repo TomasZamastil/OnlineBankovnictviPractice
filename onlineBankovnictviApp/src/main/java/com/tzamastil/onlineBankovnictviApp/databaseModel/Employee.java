@@ -1,5 +1,6 @@
 package com.tzamastil.onlineBankovnictviApp.databaseModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +11,7 @@ public class Employee{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private long employeeId;
     private String name;
     private String password;
@@ -34,6 +36,10 @@ public class Employee{
 
     public String getPassword() {
         return password;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
