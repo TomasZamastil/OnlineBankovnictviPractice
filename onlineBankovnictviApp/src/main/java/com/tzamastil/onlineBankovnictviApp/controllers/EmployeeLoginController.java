@@ -5,23 +5,28 @@ import com.tzamastil.onlineBankovnictviApp.databaseModel.TotallySecureEncoder;
 import com.tzamastil.onlineBankovnictviApp.repos.EmployeeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class EmployeeLoginController {
 
     private final EmployeeRepo employeeRepo;
+    private boolean wrongNameOrPassword = false;
 
     @Autowired
     public EmployeeLoginController(EmployeeRepo employeeRepo) {
         this.employeeRepo = employeeRepo;
     }
 
-    @GetMapping("/employeelogin")
-    public String getEmployeeLogin() {
+    @GetMapping({"/employeelogin", "/loginInformation"})
+    public String getEmployeeLogin(Model model) {
+        if (wrongNameOrPassword) {
+            model.addAttribute("error", "Wrong name or password!");
+        } else {
+            model.addAttribute("error", "");
+        }
+        wrongNameOrPassword = false;
         return "employeelogin/employeelogin";
     }
 
@@ -32,7 +37,8 @@ public class EmployeeLoginController {
         if (Employee.currentLoggedAccount != null) {
             return "redirect:/admin";
         } else {
-            return "employeelogin/employeelogin";
+            wrongNameOrPassword = true;
+            return "redirect:employeelogin";
         }
     }
 
