@@ -1,5 +1,6 @@
 package com.tzamastil.onlineBankovnictviApp.databaseModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -10,11 +11,15 @@ public class AccountUser{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private long id;
+    @JsonIgnore
     private long accountNumber;
+    @JsonIgnore
     private double balance;
     private String name;
     private String password;
+    public static AccountUser currentLoggedAccount = null;
 
 
     @OneToMany(mappedBy = "receivingUser", cascade = CascadeType.ALL)
@@ -36,16 +41,12 @@ public class AccountUser{
         this.accountNumber = 1000 + this.id;
     }
 
-    public long getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getAccountNumber() {
-        return accountNumber;
+    public String getPassword() {
+        return password;
     }
 
     public double getBalance() {

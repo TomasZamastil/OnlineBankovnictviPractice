@@ -19,7 +19,7 @@ public class EmployeeLoginController {
         this.employeeRepo = employeeRepo;
     }
 
-    @GetMapping({"/employeelogin", "/loginInformation"})
+    @GetMapping({"/employeelogin", "/loginInformationEmployee"})
     public String getEmployeeLogin(Model model) {
         if (wrongNameOrPassword) {
             model.addAttribute("error", "Wrong name or password!");

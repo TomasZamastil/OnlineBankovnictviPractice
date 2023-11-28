@@ -26,14 +26,6 @@ public class Employee{
         this.password = TotallySecureEncoder.encodePassword(password);
     }
 
-    public long getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(long employeeId) {
-        this.employeeId = employeeId;
-    }
-
     public String getPassword() {
         return password;
     }
