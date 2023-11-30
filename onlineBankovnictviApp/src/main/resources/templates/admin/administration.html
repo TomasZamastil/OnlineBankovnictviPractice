@@ -41,6 +41,48 @@
 <body>
 <h1 th:text="'Welcome ' + ${employeeName}"> hm </h1>
 
-<button type="button">Click Me!</button>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Account Number</th>
+        <th>Balance</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${userList}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.accountNumber}"></td>
+        <td th:text="${user.balance}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="form-container">
+    <form action="/loginInformationEmployee" method="post">
+        <div>
+            <label for="newname">Name</label><br>
+            <input type="text" id="newname" name="newname" placeholder="Jméno" />
+        </div>
+
+        <div>
+            <label for="newpassword">Password</label><br>
+            <input type="text" id="newpassword" name="newpassword" placeholder="Heslo" />
+        </div>
+
+        <div>
+            <label for="initialbalance">Password</label><br>
+            <input type="text" id="initialbalance" name="initialbalance" placeholder="Úvodní Vklad" />
+        </div>
+
+        <div class="input-container">
+            <input type="submit" value="Login" />
+        </div>
+    </form>
+
+    <h2 th:text="${error}"> hm </h2>
+</div>
 </body>
 </html>

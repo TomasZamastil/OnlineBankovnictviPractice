@@ -1,7 +1,7 @@
 package com.tzamastil.onlineBankovnictviApp.repos;
 
 import com.tzamastil.onlineBankovnictviApp.databaseModel.Transaction;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 
-public interface TransactionRepo extends CrudRepository<Transaction, Long> {
+public interface TransactionRepo extends ListCrudRepository<Transaction, Long> {
 }

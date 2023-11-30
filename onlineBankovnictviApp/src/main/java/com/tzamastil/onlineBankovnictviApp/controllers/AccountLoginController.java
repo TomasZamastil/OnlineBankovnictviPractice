@@ -37,7 +37,6 @@ public class AccountLoginController {
         password = TotallySecureEncoder.encodePassword(password);
         AccountUser.currentLoggedAccount = authenticateAccountUser(name, password);
         if (AccountUser.currentLoggedAccount != null) {
-
             return "redirect:/useroverview";
         } else {
             wrongNameOrPassword = true;

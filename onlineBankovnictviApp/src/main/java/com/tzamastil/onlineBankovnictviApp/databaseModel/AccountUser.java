@@ -57,6 +57,14 @@ public class AccountUser{
         this.balance = balance;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public long getAccountNumber() {
+        return accountNumber;
+    }
+
     public List<Transaction> getTransactions() {
         return transactions;
     }

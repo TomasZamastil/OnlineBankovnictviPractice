@@ -1,7 +1,7 @@
 package com.tzamastil.onlineBankovnictviApp.repos;
 
 import com.tzamastil.onlineBankovnictviApp.databaseModel.AccountUser;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
 
-public interface UserRepo extends CrudRepository<AccountUser, Long> {
+public interface UserRepo extends ListCrudRepository<AccountUser, Long> {
 }

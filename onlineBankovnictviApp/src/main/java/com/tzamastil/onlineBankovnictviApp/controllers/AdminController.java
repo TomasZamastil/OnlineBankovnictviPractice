@@ -19,6 +19,7 @@ public class AdminController {
         if (Employee.currentLoggedAccount != null) {
             String employeeName = Employee.currentLoggedAccount.getName();
             model.addAttribute("employeeName", employeeName);
+            model.addAttribute("userList", userRepo.findAll());
             return "admin/administration";
         } else {
             return "redirect:";
