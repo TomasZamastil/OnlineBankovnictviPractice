@@ -30,7 +30,7 @@ public class EmployeeLoginController {
         return "employeelogin/employeelogin";
     }
 
-    @PostMapping("/loginInformation")
+    @PostMapping("/loginInformationEmployee")
     public String logEmployeeIn(@RequestParam String name, @RequestParam String password) {
         password = TotallySecureEncoder.encodePassword(password);
         Employee.currentLoggedAccount = authenticateEmployee(name, password);
