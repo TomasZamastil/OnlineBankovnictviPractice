@@ -35,6 +35,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
+            margin-bottom: 20px;
         }
 
         button:hover {
@@ -71,6 +72,8 @@
 </head>
 <body>
 <h1 th:text="'Welcome ' + ${employeeName}"> hm </h1>
+
+<button onclick="location.href='/home'" type="button">Back Home</button>
 
 <table>
     <thead>
