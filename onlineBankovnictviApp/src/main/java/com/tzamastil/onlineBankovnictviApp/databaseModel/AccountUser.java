@@ -10,7 +10,7 @@ import java.util.List;
 public class AccountUser{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private long id;
     @JsonIgnore
@@ -20,7 +20,6 @@ public class AccountUser{
     private String name;
     private String password;
     public static AccountUser currentLoggedAccount = null;
-
 
     @OneToMany(mappedBy = "receivingUser", cascade = CascadeType.ALL)
     private List<Transaction> transactions;
@@ -34,6 +33,7 @@ public class AccountUser{
         this.balance = initialDeposit;
         this.name = name;
         this.password = TotallySecureEncoder.encodePassword(password);
+        this.accountNumber = 1000;
     }
 
     @PostPersist

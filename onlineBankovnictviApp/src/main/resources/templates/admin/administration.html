@@ -22,6 +22,10 @@
             margin-bottom: 20px;
         }
 
+        table {
+            margin-top: 20px; /* Add space between the table and form */
+        }
+
         button {
             padding: 10px 20px;
             font-size: 1em;
@@ -35,6 +39,33 @@
 
         button:hover {
             background-color: #45a049;
+        }
+
+        .form-container {
+            text-align: center;
+            margin-top: 30px; /* Add space between the table and form */
+        }
+
+        h2.form-heading {
+            text-align: center;
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .form-container form div {
+            display: inline-block;
+            margin-right: 10px; /* Add margin between form elements */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 5px;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -61,28 +92,42 @@
 </table>
 
 <div class="form-container">
-    <form action="/loginInformationEmployee" method="post">
+    <h2 class="form-heading">Create a new Account</h2>
+    <form action="/admin" method="post">
+
         <div>
-            <label for="newname">Name</label><br>
-            <input type="text" id="newname" name="newname" placeholder="Jméno" />
+            <input type="checkbox" id="adminAccount" name="adminAccount" onclick="toggleInput()" />
+            <label for="adminAccount">Admin Account</label>
         </div>
 
         <div>
-            <label for="newpassword">Password</label><br>
-            <input type="text" id="newpassword" name="newpassword" placeholder="Heslo" />
+            <label for="name">Jméno</label>
+            <input type="text" id="name" name="name" placeholder="Jméno" />
         </div>
 
         <div>
-            <label for="initialbalance">Password</label><br>
-            <input type="text" id="initialbalance" name="initialbalance" placeholder="Úvodní Vklad" />
+            <label for="password">Heslo</label>
+            <input type="text" id="password" name="password" placeholder="Heslo" />
+        </div>
+
+        <div>
+            <label for="initialDeposit">Úvodní Vklad</label>
+            <input type="text" id="initialDeposit" name="initialDeposit" placeholder="Úvodní Vklad" />
         </div>
 
         <div class="input-container">
-            <input type="submit" value="Login" />
+            <input type="submit" value="Create" />
         </div>
     </form>
 
-    <h2 th:text="${error}"> hm </h2>
+    <h2 th:text="${errorMessage}"> hm </h2>
 </div>
+
+<script>
+    function toggleInput() {
+        var initialDepositInput = document.getElementById("initialDeposit");
+        initialDepositInput.disabled = !initialDepositInput.disabled;
+    }
+</script>
 </body>
 </html>

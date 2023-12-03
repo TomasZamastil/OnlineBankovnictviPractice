@@ -23,7 +23,7 @@ public class BootStrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Employee tom = new Employee("admin", "heslo123");
+        Employee tom = new Employee("admin", "asdf1");
         employeeRepo.save(tom);
 
         AccountUser hana = new AccountUser("Hana Zamastilová", "password1", 10000);
