@@ -42,8 +42,11 @@ public class AdminController {
 
     @PostMapping("/admin")
     @Transactional
-    public String logEmployeeIn(@RequestParam String name, @RequestParam String password, @RequestParam(required = false) Double initialDeposit) {
-        if (initialDeposit == null) {
+    public String logEmployeeIn(@RequestParam(required = false) String adminAccount,
+                                @RequestParam(required = false) String name,
+                                @RequestParam(required = false) String password,
+                                @RequestParam(required = false) Double initialDeposit) {
+        if (adminAccount != null) {
             for (Employee employee : employeeRepo.findAll()) {
                 if (employee.getName().equals(name)) {
                     error = true;

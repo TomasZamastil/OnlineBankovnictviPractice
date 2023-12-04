@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>Account Administration</title>
     <style>
         body {
@@ -23,7 +24,23 @@
         }
 
         table {
-            margin-top: 20px; /* Add space between the table and form */
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 80%;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
         }
 
         button {
@@ -36,6 +53,7 @@
             cursor: pointer;
             transition: background-color 0.3s;
             margin-bottom: 20px;
+            margin-left: 10px;
         }
 
         button:hover {
@@ -43,94 +61,136 @@
         }
 
         .form-container {
-            text-align: center;
-            margin-top: 30px; /* Add space between the table and form */
-        }
-
-        h2.form-heading {
-            text-align: center;
-            color: #333;
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-
-        .form-container form div {
-            display: inline-block;
-            margin-right: 10px; /* Add margin between form elements */
+            width: 80%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: auto;
+            margin-right: auto;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
+            color: #333;
         }
 
         input {
-            padding: 5px;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             box-sizing: border-box;
         }
+
+        .buttons-container {
+            text-align: center;
+        }
+
+        h2.form-heading {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        h2.error-message {
+            color: #ff0000;
+            margin-top: 10px;
+        }
+
+        .create-button {
+            background-color: #008CBA;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .create-button:hover {
+            background-color: #00688B;
+        }
+
+        .form-container label[for="adminAccount"] {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            text-align: center; /* Center the label */
+        }
+
     </style>
 </head>
+
 <body>
 <h1 th:text="'Welcome ' + ${employeeName}"> hm </h1>
 
-<button onclick="location.href='/home'" type="button">Back Home</button>
-
-<table>
-    <thead>
-    <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Account Number</th>
-        <th>Balance</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${userList}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.accountNumber}"></td>
-        <td th:text="${user.balance}"></td>
-    </tr>
-    </tbody>
-</table>
+<div>
+    <button onclick="location.href='/home'" type="button">Back Home</button>
+</div>
 
 <div class="form-container">
-    <h2 class="form-heading">Create a new Account</h2>
-    <form action="/admin" method="post">
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Account Number</th>
+            <th>Balance</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${userList}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.accountNumber}"></td>
+            <td th:text="${user.balance}"></td>
+        </tr>
+        </tbody>
+    </table>
 
-        <div>
-            <input type="checkbox" id="adminAccount" name="adminAccount" onclick="toggleInput()" />
-            <label for="adminAccount">Admin Account</label>
-        </div>
+    <div class="form-container">
+        <h2 class="form-heading">Create a new Account</h2>
+        <form action="/admin" method="post">
+            <div>
+                <label for="adminAccount">Admin Account</label>
+                <input type="checkbox" id="adminAccount" name="adminAccount" value="true" onclick="toggleInput()" />
+            </div>
 
-        <div>
-            <label for="name">Jméno</label>
-            <input type="text" id="name" name="name" placeholder="Jméno" />
-        </div>
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Name" />
+            </div>
 
-        <div>
-            <label for="password">Heslo</label>
-            <input type="text" id="password" name="password" placeholder="Heslo" />
-        </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="text" id="password" name="password" placeholder="Password" />
+            </div>
 
-        <div>
-            <label for="initialDeposit">Úvodní Vklad</label>
-            <input type="text" id="initialDeposit" name="initialDeposit" placeholder="Úvodní Vklad" />
-        </div>
+            <div>
+                <label for="initialDeposit">Initial Deposit</label>
+                <input type="text" id="initialDeposit" name="initialDeposit" placeholder="Initial Deposit" />
+            </div>
 
-        <div class="input-container">
-            <input type="submit" value="Create" />
-        </div>
-    </form>
+            <div class="buttons-container">
+                <input type="submit" value="Create" class="create-button" />
+            </div>
+        </form>
 
-    <h2 th:text="${errorMessage}"> hm </h2>
+        <h2 class="error-message" th:text="${errorMessage}"> hm </h2>
+    </div>
 </div>
 
 <script>
     function toggleInput() {
-        var initialDepositInput = document.getElementById("initialDeposit");
-        initialDepositInput.disabled = !initialDepositInput.disabled;
+        const adminAccountCheckbox = document.getElementById("adminAccount");
+        const initialDepositInput = document.getElementById("initialDeposit");
+
+        initialDepositInput.disabled = adminAccountCheckbox.checked;
     }
 </script>
 </body>
+
 </html>
