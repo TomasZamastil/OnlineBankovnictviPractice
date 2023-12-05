@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>Account View</title>
     <style>
         body {
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
             margin: 0;
             font-family: 'Arial', sans-serif;
@@ -22,6 +23,26 @@
             margin-bottom: 20px;
         }
 
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 80%;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
         button {
             padding: 10px 20px;
             font-size: 1em;
@@ -32,16 +53,130 @@
             cursor: pointer;
             transition: background-color 0.3s;
             margin-bottom: 20px;
+            margin-left: 10px;
         }
 
         button:hover {
             background-color: #45a049;
         }
+
+        .form-container {
+            width: 80%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .buttons-container {
+            text-align: center;
+        }
+
+        h2.form-heading {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        h2.error-message {
+            color: #ff0000;
+            margin-top: 10px;
+        }
+
+        .create-button {
+            background-color: #008CBA;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .create-button:hover {
+            background-color: #00688B;
+        }
+
+        .form-container label[for="adminAccount"] {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            text-align: center; /* Center the label */
+        }
+
     </style>
 </head>
+
 <body>
 <h1 th:text="'Welcome ' + ${accountUserName}"> hm </h1>
 
-<button onclick="location.href='/home'" type="button">Back Home</button>
+<div>
+    <button onclick="location.href='/home'" type="button">Back Home</button>
+</div>
+
+<div class="form-container">
+    <table>
+        <thead>
+        <tr>
+            <th>Transaction Origin</th>
+            <th>Transaction Reception</th>
+            <th>Transferred Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction : ${transactionList}">
+            <td th:text="${transaction.originatingUser}"></td>
+            <td th:text="${transaction.receivingUser}"></td>
+            <td th:text="${transaction.amount}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="form-container">
+        <h2 class="form-heading">Create a new Account</h2>
+        <form action="/useroverview" method="post">
+            <div>
+                <label for="adminAccount">Admin Account</label>
+                <input type="checkbox" id="adminAccount" name="adminAccount" value="true" onclick="toggleInput()" />
+            </div>
+
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Name" />
+            </div>
+
+            <div>
+                <label for="initialDeposit">Amount</label>
+                <input type="text" id="initialDeposit" name="initialDeposit" placeholder="Initial Deposit" />
+            </div>
+
+            <div class="buttons-container">
+                <input type="submit" value="Send" class="create-button" />
+            </div>
+        </form>
+
+        <h2 class="error-message" th:text="${errorMessage}"> hm </h2>
+    </div>
+</div>
+
+
 </body>
+
 </html>

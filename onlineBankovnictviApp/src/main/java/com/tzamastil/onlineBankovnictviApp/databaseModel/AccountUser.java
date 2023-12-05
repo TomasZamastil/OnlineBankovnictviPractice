@@ -85,6 +85,7 @@ public class AccountUser{
     }
 
     public static boolean processTransaction(Transaction transaction) {
+
         if (transaction.getAmount() <= transaction.getOriginatingUser().getBalance()) {
             transaction.getOriginatingUser().setBalance(transaction.getOriginatingUser().getBalance() - transaction.getAmount());
             transaction.getReceivingUser().setBalance(transaction.getReceivingUser().getBalance() + transaction.getAmount());
