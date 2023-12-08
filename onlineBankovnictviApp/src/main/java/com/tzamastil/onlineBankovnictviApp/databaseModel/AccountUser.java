@@ -3,8 +3,6 @@ package com.tzamastil.onlineBankovnictviApp.databaseModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class AccountUser{
@@ -21,15 +19,12 @@ public class AccountUser{
     private String password;
     public static AccountUser currentLoggedAccount = null;
 
-    @OneToMany(mappedBy = "receivingUser", cascade = CascadeType.ALL)
-    private List<Transaction> transactions;
 
     public AccountUser() {
     }
 
     public AccountUser(String name, String password, double initialDeposit) {
 
-        this.transactions = new ArrayList<>();
         this.balance = initialDeposit;
         this.name = name;
         this.password = TotallySecureEncoder.encodePassword(password);
@@ -65,8 +60,9 @@ public class AccountUser{
         return accountNumber;
     }
 
-    public List<Transaction> getTransactions() {
-        return transactions;
+    @Override
+    public String toString() {
+        return name + " " + accountNumber;
     }
 
     @Override
@@ -82,16 +78,5 @@ public class AccountUser{
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
-    }
-
-    public static boolean processTransaction(Transaction transaction) {
-
-        if (transaction.getAmount() <= transaction.getOriginatingUser().getBalance()) {
-            transaction.getOriginatingUser().setBalance(transaction.getOriginatingUser().getBalance() - transaction.getAmount());
-            transaction.getReceivingUser().setBalance(transaction.getReceivingUser().getBalance() + transaction.getAmount());
-            return true;
-        } else {
-            return false;
-        }
     }
 }

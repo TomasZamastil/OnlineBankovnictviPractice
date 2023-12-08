@@ -1,6 +1,5 @@
 package com.tzamastil.onlineBankovnictviApp.databaseModel;
 
-
 import jakarta.persistence.*;
 
 @Entity
@@ -11,11 +10,11 @@ public class Transaction {
     private long transactionId;
 
     @ManyToOne
-    @JoinColumn(name = "originatingUser")
+    @JoinColumn(name = "originating_user")
     private AccountUser originatingUser;
 
     @ManyToOne
-    @JoinColumn(name = "receivingUser")
+    @JoinColumn(name = "receiving_user")
     private AccountUser receivingUser;
 
     private double amount;
