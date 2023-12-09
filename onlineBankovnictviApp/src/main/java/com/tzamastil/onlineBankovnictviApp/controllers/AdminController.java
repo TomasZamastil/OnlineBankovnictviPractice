@@ -2,6 +2,7 @@ package com.tzamastil.onlineBankovnictviApp.controllers;
 import com.tzamastil.onlineBankovnictviApp.databaseModel.AccountUser;
 import com.tzamastil.onlineBankovnictviApp.databaseModel.Employee;
 import com.tzamastil.onlineBankovnictviApp.repos.EmployeeRepo;
+import com.tzamastil.onlineBankovnictviApp.repos.TransactionRepo;
 import com.tzamastil.onlineBankovnictviApp.repos.UserRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,11 +16,13 @@ public class AdminController {
 
     private final UserRepo userRepo;
     private final EmployeeRepo employeeRepo;
+    private final TransactionRepo transactionRepo;
     private boolean error = false;
 
-    public AdminController(UserRepo userRepo, EmployeeRepo employeeRepo) {
+    public AdminController(UserRepo userRepo, EmployeeRepo employeeRepo, TransactionRepo transactionRepo) {
         this.userRepo = userRepo;
         this.employeeRepo = employeeRepo;
+        this.transactionRepo = transactionRepo;
     }
 
     @GetMapping({"/admin"})
@@ -28,6 +31,7 @@ public class AdminController {
             String employeeName = Employee.currentLoggedAccount.getName();
             model.addAttribute("employeeName", employeeName);
             model.addAttribute("userList", userRepo.findAll());
+            model.addAttribute("Transaction", transactionRepo.findAll());
             if (error) {
                 model.addAttribute("errorMessage", "Something went wrong, try again");
             } else {

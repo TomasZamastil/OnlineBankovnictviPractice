@@ -48,13 +48,4 @@ public class Employee{
     public int hashCode() {
         return (int) (employeeId ^ (employeeId >>> 32));
     }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "employeeId=" + employeeId +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
 }

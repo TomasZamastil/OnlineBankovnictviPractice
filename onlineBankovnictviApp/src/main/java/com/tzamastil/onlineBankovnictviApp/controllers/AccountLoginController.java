@@ -2,7 +2,6 @@ package com.tzamastil.onlineBankovnictviApp.controllers;
 import com.tzamastil.onlineBankovnictviApp.databaseModel.AccountUser;
 import com.tzamastil.onlineBankovnictviApp.databaseModel.TotallySecureEncoder;
 import com.tzamastil.onlineBankovnictviApp.repos.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,6 @@ public class AccountLoginController {
     private final UserRepo userRepo;
     private boolean wrongNameOrPassword = false;
 
-    @Autowired
     public AccountLoginController(UserRepo userRepo) {
         this.userRepo = userRepo;
     }

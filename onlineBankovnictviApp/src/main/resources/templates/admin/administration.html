@@ -150,6 +150,23 @@
         </tr>
         </tbody>
     </table>
+        <table>
+            <thead>
+            <tr>
+                <th>Transaction Origin</th>
+                <th>Transaction Reception</th>
+                <th>Transferred Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="transaction : ${Transaction}">
+                <td th:text="${transaction.originatingUser}"></td>
+                <td th:text="${transaction.receivingUser}"></td>
+                <td th:text="${transaction.amount}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div class="form-container">
         <h2 class="form-heading">Create a new Account</h2>
@@ -179,7 +196,7 @@
             </div>
         </form>
 
-        <h2 class="error-message" th:text="${errorMessage}"> hm </h2>
+        <h2 class="error-message" th:text="${errorMessage}"> error </h2>
     </div>
 </div>
 

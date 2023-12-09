@@ -2,7 +2,6 @@ package com.tzamastil.onlineBankovnictviApp.databaseModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tzamastil.onlineBankovnictviApp.repos.TransactionRepo;
-import com.tzamastil.onlineBankovnictviApp.repos.UserRepo;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
