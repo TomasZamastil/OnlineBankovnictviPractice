@@ -48,8 +48,10 @@ public class AccountViewController {
             Double balance = currentAccount.getBalance();
             model.addAttribute("accountUserName", accountUserName);
             model.addAttribute("Balance", balance);
-            model.addAttribute("IncomingTransactionList", transactionRepo.findAll());
-            model.addAttribute("OutgoingTransactionList", transactionRepo.findAll());
+            model.addAttribute("IncomingTransactionList",
+                    currentAccount.getIncomingTransactions(transactionRepo));
+            model.addAttribute("OutgoingTransactionList",
+                    currentAccount.getOutgoingTransactions(transactionRepo));
             return "useroverview/accountView";
         } else {
             return "redirect:";

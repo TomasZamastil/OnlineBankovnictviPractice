@@ -1,7 +1,12 @@
 package com.tzamastil.onlineBankovnictviApp.databaseModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tzamastil.onlineBankovnictviApp.repos.TransactionRepo;
+import com.tzamastil.onlineBankovnictviApp.repos.UserRepo;
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -58,6 +63,26 @@ public class AccountUser{
 
     public long getAccountNumber() {
         return accountNumber;
+    }
+
+    public List<Transaction> getOutgoingTransactions(TransactionRepo transactionRepo) {
+        List<Transaction> transactions = new ArrayList<>();
+        for (Transaction transaction : transactionRepo.findAll()) {
+            if (transaction.getOriginatingUser().getId() == this.id) {
+                transactions.add(transaction);
+            }
+        }
+        return transactions;
+    }
+
+    public List<Transaction> getIncomingTransactions(TransactionRepo transactionRepo) {
+        List<Transaction> transactions = new ArrayList<>();
+        for (Transaction transaction : transactionRepo.findAll()) {
+            if (transaction.getReceivingUser().getId() == this.id) {
+                transactions.add(transaction);
+            }
+        }
+        return transactions;
     }
 
     @Override
