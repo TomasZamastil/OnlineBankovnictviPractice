@@ -126,7 +126,7 @@
 
 <body>
 <h1 th:text="'Welcome ' + ${accountUserName}"> name </h1>
-<h2 th:text="'Current balance: ' +${#numbers.formatCurrency(Balance)}"> balance</h2>
+<h2 th:text="'Current balance: ' +${#numbers.formatCurrency(balance)}"> balance</h2>
 
 <div>
     <button onclick="location.href='/home'" type="button">Back Home</button>
@@ -142,12 +142,12 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="transaction : ${IncomingTransactionList}">
+        <tr th:each="transaction : ${incomingTransactionList}">
             <td th:text="${transaction.originatingUser}"></td>
             <td th:text="${transaction.receivingUser}"></td>
             <td style="color:green" th:text="${#numbers.formatCurrency(transaction.amount)}"></td>
         </tr>
-        <tr th:each="transaction : ${OutgoingTransactionList}">
+        <tr th:each="transaction : ${outgoingTransactionList}">
             <td th:text="${transaction.originatingUser}"></td>
             <td th:text="${transaction.receivingUser}"></td>
             <td style="color:red" th:text="${#numbers.formatCurrency(transaction.amount)}"></td>
@@ -166,7 +166,7 @@
 
             <div>
                 <label for="amount">Amount</label>
-                <input type="text" id="amount" name="amount" placeholder="Amount" />
+                <input type="number" id="amount" name="amount" placeholder="Amount" />
             </div>
 
             <div class="buttons-container">
@@ -174,7 +174,7 @@
             </div>
         </form>
 
-        <h2 class="error-message" th:text="${errorMessage}"> error </h2>
+        <h2 class="error-message" th:text="${error}"> error </h2>
     </div>
 </div>
 

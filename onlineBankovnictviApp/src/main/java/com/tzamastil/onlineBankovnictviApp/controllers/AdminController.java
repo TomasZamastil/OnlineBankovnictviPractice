@@ -17,7 +17,7 @@ public class AdminController {
     private final UserRepo userRepo;
     private final EmployeeRepo employeeRepo;
     private final TransactionRepo transactionRepo;
-    private boolean error = false;
+    private String error = "";
 
     public AdminController(UserRepo userRepo, EmployeeRepo employeeRepo, TransactionRepo transactionRepo) {
         this.userRepo = userRepo;
@@ -31,13 +31,9 @@ public class AdminController {
             String employeeName = Employee.currentLoggedAccount.getName();
             model.addAttribute("employeeName", employeeName);
             model.addAttribute("userList", userRepo.findAll());
-            model.addAttribute("Transaction", transactionRepo.findAll());
-            if (error) {
-                model.addAttribute("errorMessage", "Something went wrong, try again");
-            } else {
-                model.addAttribute("errorMessage", "");
-            }
-            error = false;
+            model.addAttribute("transaction", transactionRepo.findAll());
+            model.addAttribute("errorMessage", error);
+            error = "";
             return "admin/administration";
         } else {
             return "redirect:";
@@ -53,7 +49,7 @@ public class AdminController {
         if (adminAccount != null) {
             for (Employee employee : employeeRepo.findAll()) {
                 if (employee.getName().equals(name)) {
-                    error = true;
+                    error = "Account with this user name already exists!";
                     return "redirect:/admin";
                 }
             }
@@ -61,13 +57,13 @@ public class AdminController {
             try {
                 employeeRepo.save(new Employee(name, password));
             } catch (Exception e) {
-                error = true;
+                error = "Error creating admin account";
             }
 
         } else {
             for (AccountUser accountUser : userRepo.findAll()) {
                 if (accountUser.getName().equals(name)) {
-                    error = true;
+                    error = "Account with this user name already exists!";
                     return "redirect:/admin";
                 }
             }
@@ -75,7 +71,7 @@ public class AdminController {
             try {
                 userRepo.save(new AccountUser(name, password, initialDeposit));
             } catch (Exception e) {
-                error = true;
+                error = "Error creating account";
                 return "redirect:/admin";
             }
 

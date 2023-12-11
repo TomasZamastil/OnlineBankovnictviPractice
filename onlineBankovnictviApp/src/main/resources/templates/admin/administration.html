@@ -100,7 +100,7 @@
         }
 
         .create-button {
-            background-color: #008CBA;
+            background-color: #4CAF50;
             color: #fff;
             border: none;
             padding: 10px 20px;
@@ -111,7 +111,7 @@
         }
 
         .create-button:hover {
-            background-color: #00688B;
+            background-color: #45a049;
         }
 
         .form-container label[for="adminAccount"] {
@@ -159,7 +159,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="transaction : ${Transaction}">
+            <tr th:each="transaction : ${transaction}">
                 <td th:text="${transaction.originatingUser}"></td>
                 <td th:text="${transaction.receivingUser}"></td>
                 <td th:text="${#numbers.formatCurrency(transaction.amount)}"></td>
@@ -188,7 +188,7 @@
 
             <div>
                 <label for="initialDeposit">Initial Deposit</label>
-                <input type="text" id="initialDeposit" name="initialDeposit" placeholder="Initial Deposit" />
+                <input type="number" id="initialDeposit" name="initialDeposit" placeholder="Initial Deposit" />
             </div>
 
             <div class="buttons-container">

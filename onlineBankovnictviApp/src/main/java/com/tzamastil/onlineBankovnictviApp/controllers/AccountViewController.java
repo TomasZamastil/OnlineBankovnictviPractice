@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 public class AccountViewController {
 
     private final TransactionRepo transactionRepo;
     private final UserRepo userRepo;
+    private String error = "";
 
 
     public AccountViewController(TransactionRepo transactionRepo, UserRepo userRepo) {
@@ -25,22 +25,38 @@ public class AccountViewController {
 
     @PostMapping("/useroverview")
     @Transactional
-    public String transferMoney(@RequestParam long accountNumber, @RequestParam double amount) {
-        AccountUser origin = AccountUser.currentLoggedAccount;
-        if (accountNumber == origin.getAccountNumber()) {
+    public String transferMoney(@RequestParam(required = false) Long accountNumber,
+                                @RequestParam(required = false) Double amount) {
+
+        if (accountNumber == null || amount == null) {
+            error = "Both fields require a value";
             return "redirect:/useroverview";
         }
+
+        AccountUser origin = AccountUser.currentLoggedAccount;
+
+        if (accountNumber == origin.getAccountNumber()) {
+            error = "Cannot transfer money to self";
+            return "redirect:/useroverview";
+        }
+
         AccountUser recipient = null;
         for (AccountUser accountUser : userRepo.findAll()) {
             if (accountUser.getAccountNumber() == accountNumber) {
                 recipient = accountUser;
             }
         }
-        if (origin.getBalance() >= amount && recipient != null) {
+
+        if (recipient == null) {
+            error = "Recipient does not exist";
+        } else if (origin.getBalance() < amount) {
+            error = "Insufficient Funds";
+        } else {
             origin.setBalance(origin.getBalance() - amount);
             recipient.setBalance(recipient.getBalance() + amount);
             processTransaction(origin, recipient, amount);
         }
+
         return "redirect:/useroverview";
     }
 
@@ -51,11 +67,13 @@ public class AccountViewController {
             String accountUserName = currentAccount.getName();
             Double balance = currentAccount.getBalance();
             model.addAttribute("accountUserName", accountUserName);
-            model.addAttribute("Balance", balance);
-            model.addAttribute("IncomingTransactionList",
+            model.addAttribute("balance", balance);
+            model.addAttribute("incomingTransactionList",
                     currentAccount.getIncomingTransactions(transactionRepo));
-            model.addAttribute("OutgoingTransactionList",
+            model.addAttribute("outgoingTransactionList",
                     currentAccount.getOutgoingTransactions(transactionRepo));
+            model.addAttribute("error", error);
+            error = "";
             return "useroverview/accountView";
         } else {
             return "redirect:";

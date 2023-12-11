@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeLoginController {
 
     private final EmployeeRepo employeeRepo;
-    private boolean wrongNameOrPassword = false;
+    private String error = "";
 
     @Autowired
     public EmployeeLoginController(EmployeeRepo employeeRepo) {
@@ -21,12 +21,7 @@ public class EmployeeLoginController {
 
     @GetMapping({"/employeelogin", "/loginInformationEmployee"})
     public String getEmployeeLogin(Model model) {
-        if (wrongNameOrPassword) {
-            model.addAttribute("error", "Wrong name or password!");
-        } else {
-            model.addAttribute("error", "");
-        }
-        wrongNameOrPassword = false;
+        model.addAttribute("error", error);
         return "employeelogin/employeelogin";
     }
 
@@ -37,7 +32,7 @@ public class EmployeeLoginController {
         if (Employee.currentLoggedAccount != null) {
             return "redirect:/admin";
         } else {
-            wrongNameOrPassword = true;
+            error = "Wrong name or password!";
             return "redirect:employeelogin";
         }
     }
