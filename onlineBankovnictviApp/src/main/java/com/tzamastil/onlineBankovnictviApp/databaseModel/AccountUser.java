@@ -86,7 +86,7 @@ public class AccountUser{
 
     @Override
     public String toString() {
-        return name + " " + accountNumber;
+        return name + " | " + accountNumber;
     }
 
     @Override

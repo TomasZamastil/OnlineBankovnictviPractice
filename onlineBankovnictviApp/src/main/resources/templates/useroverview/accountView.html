@@ -126,7 +126,7 @@
 
 <body>
 <h1 th:text="'Welcome ' + ${accountUserName}"> name </h1>
-<h2 th:text="'Current balance: ' +${Balance}"> balance</h2>
+<h2 th:text="'Current balance: ' +${#numbers.formatCurrency(Balance)}"> balance</h2>
 
 <div>
     <button onclick="location.href='/home'" type="button">Back Home</button>
@@ -145,12 +145,12 @@
         <tr th:each="transaction : ${IncomingTransactionList}">
             <td th:text="${transaction.originatingUser}"></td>
             <td th:text="${transaction.receivingUser}"></td>
-            <td style="color:green" th:text="${transaction.amount}"></td>
+            <td style="color:green" th:text="${#numbers.formatCurrency(transaction.amount)}"></td>
         </tr>
         <tr th:each="transaction : ${OutgoingTransactionList}">
             <td th:text="${transaction.originatingUser}"></td>
             <td th:text="${transaction.receivingUser}"></td>
-            <td style="color:red" th:text="${transaction.amount}"></td>
+            <td style="color:red" th:text="${#numbers.formatCurrency(transaction.amount)}"></td>
         </tr>
         </tbody>
     </table>

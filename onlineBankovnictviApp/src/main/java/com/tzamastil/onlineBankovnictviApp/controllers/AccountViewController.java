@@ -17,6 +17,7 @@ public class AccountViewController {
     private final TransactionRepo transactionRepo;
     private final UserRepo userRepo;
 
+
     public AccountViewController(TransactionRepo transactionRepo, UserRepo userRepo) {
         this.transactionRepo = transactionRepo;
         this.userRepo = userRepo;
@@ -26,6 +27,9 @@ public class AccountViewController {
     @Transactional
     public String transferMoney(@RequestParam long accountNumber, @RequestParam double amount) {
         AccountUser origin = AccountUser.currentLoggedAccount;
+        if (accountNumber == origin.getAccountNumber()) {
+            return "redirect:/useroverview";
+        }
         AccountUser recipient = null;
         for (AccountUser accountUser : userRepo.findAll()) {
             if (accountUser.getAccountNumber() == accountNumber) {

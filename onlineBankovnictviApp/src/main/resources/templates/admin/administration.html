@@ -146,7 +146,7 @@
             <td th:text="${user.id}"></td>
             <td th:text="${user.name}"></td>
             <td th:text="${user.accountNumber}"></td>
-            <td th:text="${user.balance}"></td>
+            <td th:text="${#numbers.formatCurrency(user.balance)}"></td>
         </tr>
         </tbody>
     </table>
@@ -162,7 +162,7 @@
             <tr th:each="transaction : ${Transaction}">
                 <td th:text="${transaction.originatingUser}"></td>
                 <td th:text="${transaction.receivingUser}"></td>
-                <td th:text="${transaction.amount}"></td>
+                <td th:text="${#numbers.formatCurrency(transaction.amount)}"></td>
             </tr>
             </tbody>
         </table>
