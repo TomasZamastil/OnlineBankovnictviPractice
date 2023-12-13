@@ -46,6 +46,11 @@ public class AdminController {
                                 @RequestParam(required = false) String name,
                                 @RequestParam(required = false) String password,
                                 @RequestParam(required = false) Double initialDeposit) {
+        System.out.println("admin?: " + adminAccount + ", Jméno: " + name + ", Heslo: " + password + ", Peníze: " + initialDeposit);
+        if (name.isEmpty() || password.isEmpty()) {
+            error = "Values Name and Password cannot be empty";
+            return "redirect:/admin";
+        }
         if (adminAccount != null) {
             for (Employee employee : employeeRepo.findAll()) {
                 if (employee.getName().equals(name)) {
@@ -53,12 +58,7 @@ public class AdminController {
                     return "redirect:/admin";
                 }
             }
-
-            try {
                 employeeRepo.save(new Employee(name, password));
-            } catch (Exception e) {
-                error = "Error creating admin account";
-            }
 
         } else {
             for (AccountUser accountUser : userRepo.findAll()) {
@@ -71,10 +71,9 @@ public class AdminController {
             try {
                 userRepo.save(new AccountUser(name, password, initialDeposit));
             } catch (Exception e) {
-                error = "Error creating account";
+                error = "Customer accounts require initial deposit";
                 return "redirect:/admin";
             }
-
         }
         return "redirect:/admin";
     }
