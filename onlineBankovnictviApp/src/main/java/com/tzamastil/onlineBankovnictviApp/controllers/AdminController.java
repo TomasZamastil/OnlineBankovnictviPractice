@@ -40,13 +40,19 @@ public class AdminController {
         }
     }
 
-    @PostMapping("/admin")
+    @PostMapping("/accountDeletion")
     @Transactional
-    public String logEmployeeIn(@RequestParam(required = false) String adminAccount,
+    public String deleteAccount(@RequestParam(name = "userId") long id) {
+        userRepo.deleteById(id);
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/accountCreation")
+    @Transactional
+    public String createAccount(@RequestParam(required = false) String adminAccount,
                                 @RequestParam(required = false) String name,
                                 @RequestParam(required = false) String password,
                                 @RequestParam(required = false) Double initialDeposit) {
-        System.out.println("admin?: " + adminAccount + ", Jméno: " + name + ", Heslo: " + password + ", Peníze: " + initialDeposit);
         if (name.isEmpty() || password.isEmpty()) {
             error = "Values Name and Password cannot be empty";
             return "redirect:/admin";

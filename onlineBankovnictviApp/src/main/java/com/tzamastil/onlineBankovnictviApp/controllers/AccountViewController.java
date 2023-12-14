@@ -80,7 +80,6 @@ public class AccountViewController {
         }
     }
 
-
     public void processTransaction(AccountUser origin, AccountUser recipient, Double amount) {
         Transaction transaction = new Transaction(origin, recipient,amount);
         transactionRepo.save(transaction);

@@ -136,6 +136,7 @@
             <th>Name</th>
             <th>Account Number</th>
             <th>Balance</th>
+            <th>Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -144,6 +145,12 @@
             <td th:text="${user.name}"></td>
             <td th:text="${user.accountNumber}"></td>
             <td th:text="${#numbers.formatCurrency(user.balance)}"></td>
+            <td>
+                <form th:action="@{/accountDeletion}" th:method="post">
+                    <input type="hidden" name="userId" th:value="${user.id}" />
+                    <button type="submit" style="color: red; background-color: white;"><em>X</em></button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -167,7 +174,7 @@
 
     <div class="form-container">
         <h2 class="form-heading">Create a new Account</h2>
-        <form action="/admin" method="post">
+        <form action="/accountCreation" method="post">
             <div>
                 <label for="adminAccount">Admin Account</label>
                 <input type="checkbox" id="adminAccount" name="adminAccount" value="true" onclick="toggleInput()" />
@@ -195,7 +202,6 @@
 
         <h2 class="error-message" th:text="${errorMessage}"> error </h2>
     </div>
-</div>
 
 <script>
     function toggleInput() {
