@@ -29,6 +29,7 @@ public class AdminController {
     public String getHome(Model model) {
         if (Employee.currentLoggedAccount != null) {
             String employeeName = Employee.currentLoggedAccount.getName();
+
             model.addAttribute("employeeName", employeeName);
             model.addAttribute("userList", userRepo.findAll());
             model.addAttribute("transaction", transactionRepo.findAll());
@@ -54,7 +55,7 @@ public class AdminController {
                                 @RequestParam(required = false) String password,
                                 @RequestParam(required = false) Double initialDeposit) {
         if (name.isEmpty() || password.isEmpty()) {
-            error = "Values Name and Password cannot be empty";
+            error = "Fields 'Name' and 'Password' cannot be empty";
             return "redirect:/admin";
         }
         if (adminAccount != null) {

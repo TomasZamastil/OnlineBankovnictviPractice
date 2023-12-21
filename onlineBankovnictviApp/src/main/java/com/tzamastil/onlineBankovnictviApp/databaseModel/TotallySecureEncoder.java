@@ -9,6 +9,5 @@ public class TotallySecureEncoder {
         } catch (ArrayIndexOutOfBoundsException e) {
             return "";
         }
-
     }
 }

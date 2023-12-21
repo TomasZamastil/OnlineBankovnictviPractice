@@ -28,36 +28,16 @@ public class Transaction {
     public Transaction() {
     }
 
-    public long getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(long movementId) {
-        this.transactionId = movementId;
-    }
-
     public AccountUser getOriginatingUser() {
         return originatingUser;
-    }
-
-    public void setOriginatingUser(AccountUser originatingUser) {
-        this.originatingUser = originatingUser;
     }
 
     public AccountUser getReceivingUser() {
         return receivingUser;
     }
 
-    public void setReceivingUser(AccountUser receivingUser) {
-        this.receivingUser = receivingUser;
-    }
-
     public double getAmount() {
         return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
     }
 
     @Override

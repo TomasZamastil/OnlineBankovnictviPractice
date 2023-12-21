@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AccountLoginController {
 
     private final UserRepo userRepo;
-    private boolean wrongNameOrPassword = false;
+    private String wrongNameOrPassword = "";
 
     public AccountLoginController(UserRepo userRepo) {
         this.userRepo = userRepo;
@@ -21,12 +21,8 @@ public class AccountLoginController {
 
     @GetMapping({"/userlogin", "/loginInformationUser"})
     public String getUserLogin(Model model) {
-        if (wrongNameOrPassword) {
-            model.addAttribute("error", "Wrong name or password!");
-        } else {
-            model.addAttribute("error", "");
-        }
-        wrongNameOrPassword = false;
+        model.addAttribute("error", wrongNameOrPassword);
+        wrongNameOrPassword = "";
         return "userlogin/userLogin";
     }
 
@@ -37,7 +33,7 @@ public class AccountLoginController {
         if (AccountUser.currentLoggedAccount != null) {
             return "redirect:/useroverview";
         } else {
-            wrongNameOrPassword = true;
+            wrongNameOrPassword = "Wrong name or password!";
             return "redirect:userlogin";
         }
     }

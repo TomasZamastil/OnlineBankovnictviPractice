@@ -28,19 +28,19 @@ public class AccountViewController {
     public String transferMoney(@RequestParam(required = false) Long accountNumber,
                                 @RequestParam(required = false) Double amount) {
 
+        AccountUser origin = AccountUser.currentLoggedAccount;
+        AccountUser recipient = null;
+
         if (accountNumber == null || amount == null) {
             error = "Both fields require a value";
             return "redirect:/useroverview";
         }
-
-        AccountUser origin = AccountUser.currentLoggedAccount;
 
         if (accountNumber == origin.getAccountNumber()) {
             error = "Cannot transfer money to self";
             return "redirect:/useroverview";
         }
 
-        AccountUser recipient = null;
         for (AccountUser accountUser : userRepo.findAll()) {
             if (accountUser.getAccountNumber() == accountNumber) {
                 recipient = accountUser;
@@ -52,11 +52,8 @@ public class AccountViewController {
         } else if (origin.getBalance() < amount) {
             error = "Insufficient Funds";
         } else {
-            origin.setBalance(origin.getBalance() - amount);
-            recipient.setBalance(recipient.getBalance() + amount);
             processTransaction(origin, recipient, amount);
         }
-
         return "redirect:/useroverview";
     }
 
@@ -66,6 +63,7 @@ public class AccountViewController {
             AccountUser currentAccount = AccountUser.currentLoggedAccount;
             String accountUserName = currentAccount.getName();
             Double balance = currentAccount.getBalance();
+
             model.addAttribute("accountUserName", accountUserName);
             model.addAttribute("balance", balance);
             model.addAttribute("incomingTransactionList",
@@ -83,5 +81,7 @@ public class AccountViewController {
     public void processTransaction(AccountUser origin, AccountUser recipient, Double amount) {
         Transaction transaction = new Transaction(origin, recipient,amount);
         transactionRepo.save(transaction);
+        origin.setBalance(origin.getBalance() - amount);
+        recipient.setBalance(recipient.getBalance() + amount);
     }
 }

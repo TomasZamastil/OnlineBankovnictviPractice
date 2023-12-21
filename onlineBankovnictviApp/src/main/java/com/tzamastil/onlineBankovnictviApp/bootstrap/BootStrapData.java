@@ -25,6 +25,5 @@ public class BootStrapData implements CommandLineRunner {
         userRepo.save(new AccountUser("Pavel Novak", "pavnov1", 10000));
         userRepo.save(new AccountUser("Jana Novakova", "jannov2", 10000));
 
-
     }
 }
