@@ -79,8 +79,9 @@ public class AccountViewController {
     }
 
     public void processTransaction(AccountUser origin, AccountUser recipient, Double amount) {
-        Transaction transaction = new Transaction(origin, recipient,amount);
+        Transaction transaction = new Transaction(origin, recipient, amount);
         transactionRepo.save(transaction);
+        userRepo.findById(origin.getId()).orElse(null).setBalance(origin.getBalance() - amount);
         origin.setBalance(origin.getBalance() - amount);
         recipient.setBalance(recipient.getBalance() + amount);
     }
